@@ -84,10 +84,15 @@ function findElement(arr, value) {
  *    findAllOccurrences([ null, undefined, null ], null) => 2
  *    findAllOccurrences([ true, 0, 1, 'true' ], true) => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  if (!Array.isArray(arr)) {
+    throw new TypeError("First argument must be an array");
+  }
+  return arr.reduce(
+    (count, current) => (current === item ? count + 1 : count),
+    0
+  );
 }
-
 /**
  * Removes falsy values from the specified array.
  * Falsy values: false, null, 0, "", undefined, and NaN.
