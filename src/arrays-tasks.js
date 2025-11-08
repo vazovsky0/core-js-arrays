@@ -339,9 +339,23 @@ function createNDimensionalArray(n, size) {
  *    flattenArray(['a', ['b', ['c', 'd'], 'e'], 'f']) => ['a', 'b', 'c', 'd', 'e', 'f']
  *    flattenArray([1, 2, 3, 4]) => [1, 2, 3, 4]
  */
-function flattenArray(/* nestedArray */) {
-  throw new Error('Not implemented');
+function flattenArray(nestedArray) {
+  if (!Array.isArray(nestedArray)) {
+    throw new TypeError("Input must be an array");
+  }
+  const result = [];
+  (function flatten(arr) {
+    arr.forEach((item) => {
+      if (Array.isArray(item)) {
+        flatten(item);
+      } else {
+        result.push(item);
+      }
+    });
+  })(nestedArray);
+  return result;
 }
+
 
 /**
  * Projects each element of the specified array to a sequence
