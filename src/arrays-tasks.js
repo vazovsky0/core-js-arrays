@@ -123,9 +123,13 @@ function removeFalsyValues(arr) {
  *    getStringsLength([ '', 'a', 'bc', 'def', 'ghij' ]) => [ 0, 1, 2, 3, 4 ]
  *    getStringsLength([ 'angular', 'react', 'ember' ]) => [ 7, 5, 5 ]
  */
-function getStringsLength(/* arr */) {
-  throw new Error('Not implemented');
+function getStringsLength(arr) {
+  if (!Array.isArray(arr)) {
+    throw new Error("Input must be an array");
+  }
+  return arr.map((str) => str.length);
 }
+
 
 /**
  * Returns the average of all items in the specified array of numbers.
