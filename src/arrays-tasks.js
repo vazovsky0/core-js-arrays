@@ -295,9 +295,13 @@ function toStringList(arr) {
  *   distinct([ 1, 1, 2, 2, 3, 3, 4, 4]) => [ 1, 2, 3, 4]
  *   distinct([]) => []
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  if (!Array.isArray(arr)) {
+    throw new TypeError("The input must be an array.");
+  }
+  return Array.from(new Set(arr));
 }
+
 
 /**
  * Creates an n-dimensional array and fills it with zeros.
