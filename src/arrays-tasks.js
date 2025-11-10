@@ -25,7 +25,7 @@ function getIntervalArray(start, end) {
     return [];
   }
   const result = [];
-  for (let i = start; i <= end; i++) {
+  for (let i = start; i <= end; i += 1) {
     result.push(i);
   }
   return result;
@@ -46,7 +46,7 @@ function getIntervalArray(start, end) {
  */
 function sumArrays(arr1, arr2) {
   if (arr1.length !== arr2.length) {
-    throw new Error("Arrays must be of the same length");
+    throw new Error('Arrays must be of the same length');
   }
   return arr1.map((num, idx) => num + arr2[idx]);
 }
@@ -65,7 +65,7 @@ function sumArrays(arr1, arr2) {
  */
 function findElement(arr, value) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("First argument must be an array");
+    throw new TypeError('First argument must be an array');
   }
   return arr.indexOf(value);
 }
@@ -86,7 +86,7 @@ function findElement(arr, value) {
  */
 function findAllOccurrences(arr, item) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("First argument must be an array");
+    throw new TypeError('First argument must be an array');
   }
   return arr.reduce(
     (count, current) => (current === item ? count + 1 : count),
@@ -107,11 +107,10 @@ function findAllOccurrences(arr, item) {
  */
 function removeFalsyValues(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
   return arr.filter(Boolean);
 }
-
 
 /**
  * Returns an array containing the lengths of each string in a specified array of strings.
@@ -125,11 +124,10 @@ function removeFalsyValues(arr) {
  */
 function getStringsLength(arr) {
   if (!Array.isArray(arr)) {
-    throw new Error("Input must be an array");
+    throw new Error('Input must be an array');
   }
   return arr.map((str) => str.length);
 }
-
 
 /**
  * Returns the average of all items in the specified array of numbers.
@@ -152,7 +150,6 @@ function getAverage(arr) {
   return Math.round(average * 100) / 100;
 }
 
-
 /**
  * Checks if all strings in an array have the same length.
  *
@@ -169,7 +166,6 @@ function isSameLength(arr) {
   return arr.every((str) => str.length === length);
 }
 
-
 /**
  * Checks if there are elements in the array where the value is equal to its index.
  *
@@ -183,7 +179,7 @@ function isSameLength(arr) {
  */
 function isValueEqualsIndex(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
   return arr.some((value, index) => value === index);
 }
@@ -226,7 +222,6 @@ function getHead(arr, n) {
   return arr.slice(0, n);
 }
 
-
 /**
  * Returns the n last items of the specified array.
  *
@@ -258,11 +253,10 @@ function getTail(arr, n) {
  */
 function doubleArray(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
   return arr.concat(arr);
 }
-
 
 /**
  * Concatenates all elements from specified array into single string with ',' delimiter.
@@ -277,11 +271,10 @@ function doubleArray(arr) {
  */
 function toStringList(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
-  return arr.map(String).join(",");
+  return arr.map(String).join(',');
 }
-
 
 /**
  * Returns array containing only unique values from the specified array.
@@ -297,11 +290,10 @@ function toStringList(arr) {
  */
 function distinct(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("The input must be an array.");
+    throw new TypeError('The input must be an array.');
   }
   return Array.from(new Set(arr));
 }
-
 
 /**
  * Creates an n-dimensional array and fills it with zeros.
@@ -318,7 +310,7 @@ function distinct(arr) {
  */
 function createNDimensionalArray(n, size) {
   if (n <= 0 || size <= 0) {
-    throw new Error("Both n and size must be greater than 0.");
+    throw new Error('Both n and size must be greater than 0.');
   }
   if (n === 1) {
     return new Array(size).fill(0);
@@ -341,7 +333,7 @@ function createNDimensionalArray(n, size) {
  */
 function flattenArray(nestedArray) {
   if (!Array.isArray(nestedArray)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
   const result = [];
   (function flatten(arr) {
@@ -355,7 +347,6 @@ function flattenArray(nestedArray) {
   })(nestedArray);
   return result;
 }
-
 
 /**
  * Projects each element of the specified array to a sequence
@@ -372,7 +363,7 @@ function flattenArray(nestedArray) {
  */
 function selectMany(arr, childrenSelector) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("First argument must be an array");
+    throw new TypeError('First argument must be an array');
   }
 
   return arr.reduce((acc, item) => {
@@ -380,10 +371,9 @@ function selectMany(arr, childrenSelector) {
     if (Array.isArray(children)) {
       return acc.concat(children);
     }
-    throw new TypeError("childrenSelector must return an array");
+    throw new TypeError('childrenSelector must return an array');
   }, []);
 }
-
 
 /**
  * Every month, you record your income and expenses.
@@ -422,10 +412,10 @@ function calculateBalance(arr) {
  */
 function createChunks(arr, chunkSize) {
   if (!Array.isArray(arr)) {
-    throw new Error("First argument must be an array");
+    throw new Error('First argument must be an array');
   }
   if (chunkSize <= 0) {
-    throw new Error("Chunk size must be a positive integer");
+    throw new Error('Chunk size must be a positive integer');
   }
   const chunks = [];
   for (let i = 0; i < arr.length; i += chunkSize) {
@@ -468,7 +458,7 @@ function generateOdds(len) {
  */
 function getElementByIndices(arr, indices) {
   if (!Array.isArray(arr) || !Array.isArray(indices)) {
-    throw new TypeError("Both arguments must be arrays");
+    throw new TypeError('Both arguments must be arrays');
   }
   let result = arr;
   for (let i = 0; i < indices.length; i++) {
@@ -491,9 +481,9 @@ function getElementByIndices(arr, indices) {
  */
 function getFalsyValuesCount(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
-  return arr.filter(item => !item).length;
+  return arr.filter((item) => !item).length;
 }
 
 /**
@@ -516,7 +506,7 @@ function getFalsyValuesCount(arr) {
  */
 function getIdentityMatrix(n) {
   if (n <= 0) {
-    throw new Error("Size of the matrix must be a positive integer");
+    throw new Error('Size of the matrix must be a positive integer');
   }
   const matrix = [];
   for (let i = 0; i < n; i++) {
@@ -546,11 +536,9 @@ function getIdentityMatrix(n) {
  */
 function getIndicesOfOddNumbers(numbers) {
   if (!Array.isArray(numbers)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
-  return numbers
-    .map((num, i) => i)
-    .filter(i => numbers[i] % 2 !== 0);
+  return numbers.map((num, i) => i).filter((i) => numbers[i] % 2 !== 0);
 }
 
 /**
@@ -575,13 +563,12 @@ function getIndicesOfOddNumbers(numbers) {
  */
 function getHexRGBValues(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
-  return arr.map(num => {
+  return arr.map((num) => {
     const hex = num.toString(16).toUpperCase().padStart(6, '0');
     return `#${hex}`;
-  }
-  );
+  });
 }
 /**
  * Returns the n largest values from the specified array
@@ -599,11 +586,9 @@ function getHexRGBValues(arr) {
  */
 function getMaxItems(arr, n) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("First argument must be an array");
+    throw new TypeError('First argument must be an array');
   }
-  return arr
-    .sort((a, b) => b - a)
-    .slice(0, n);
+  return arr.sort((a, b) => b - a).slice(0, n);
 }
 
 /**
@@ -620,9 +605,9 @@ function getMaxItems(arr, n) {
  */
 function findCommonElements(arr1, arr2) {
   if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
-    throw new TypeError("Both arguments must be arrays");
+    throw new TypeError('Both arguments must be arrays');
   }
-  return arr1.filter(item => arr2.includes(item));
+  return arr1.filter((item) => arr2.includes(item));
 }
 
 /**
@@ -639,13 +624,13 @@ function findCommonElements(arr1, arr2) {
 
 function findLongestIncreasingSubsequence(nums) {
   if (!Array.isArray(nums)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
 
   if (!nums || nums.length === 0) return 0;
   let max = 1;
   let curr = 1;
-  
+
   for (let i = 1; i < nums.length; i++) {
     if (nums[i] > nums[i - 1]) {
       curr++;
@@ -683,7 +668,7 @@ function findLongestIncreasingSubsequence(nums) {
  */
 function propagateItemsByPositionIndex(arr) {
   if (!Array.isArray(arr)) {
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
   const result = [];
   for (let i = 0; i < arr.length; i++) {
@@ -726,20 +711,20 @@ function shiftArray(arr, n) {
 function sortDigitNamesByNumericOrder(arr) {
   // Словарь: название → число
   const digitValue = {
-    'zero': 0,
-    'one': 1,
-    'two': 2,
-    'three': 3,
-    'four': 4,
-    'five': 5,
-    'six': 6,
-    'seven': 7,
-    'eight': 8,
-    'nine': 9
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
   };
 
   if (!Array.isArray(arr)) return [];
-  
+
   return [...arr].sort((a, b) => {
     return digitValue[a] - digitValue[b];
   });
