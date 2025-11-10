@@ -162,10 +162,10 @@ function getAverage(arr) {
  */
 function isSameLength(arr) {
   if (arr.length === 0) return true;
-  const length = arr[0].length;
+
+  const [{ length }] = arr; // Деструктурируем length первого элемента
   return arr.every((str) => str.length === length);
 }
-
 /**
  * Checks if there are elements in the array where the value is equal to its index.
  *
@@ -438,7 +438,7 @@ function createChunks(arr, chunkSize) {
  */
 function generateOdds(len) {
   const result = [];
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < len; i += 1) {
     result.push(2 * i + 1);
   }
   return result;
@@ -461,7 +461,7 @@ function getElementByIndices(arr, indices) {
     throw new TypeError('Both arguments must be arrays');
   }
   let result = arr;
-  for (let i = 0; i < indices.length; i++) {
+  for (let i = 0; i < indices.length; i += 1) {
     result = result[indices[i]];
   }
   return result;
@@ -509,9 +509,9 @@ function getIdentityMatrix(n) {
     throw new Error('Size of the matrix must be a positive integer');
   }
   const matrix = [];
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i += 1) {
     const row = [];
-    for (let j = 0; j < n; j++) {
+    for (let j = 0; j < n; j += 1) {
       if (i === j) {
         row.push(1);
       } else {
@@ -631,9 +631,9 @@ function findLongestIncreasingSubsequence(nums) {
   let max = 1;
   let curr = 1;
 
-  for (let i = 1; i < nums.length; i++) {
+  for (let i = 1; i < nums.length; i += 1) {
     if (nums[i] > nums[i - 1]) {
-      curr++;
+      curr += 1;
       max = Math.max(max, curr);
     } else {
       curr = 1;
@@ -671,10 +671,10 @@ function propagateItemsByPositionIndex(arr) {
     throw new TypeError('Input must be an array');
   }
   const result = [];
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i += 1) {
     const item = arr[i];
     const times = i + 1;
-    for (let j = 0; j < times; j++) {
+    for (let j = 0; j < times; j += 1) {
       result.push(item);
     }
   }
@@ -691,15 +691,16 @@ function propagateItemsByPositionIndex(arr) {
  */
 
 function shiftArray(arr, n) {
+  let nShift = n;
   if (!arr || arr.length === 0 || n === 0) {
     return [...arr];
   }
   const len = arr.length;
-  n = n % len;
-  if (n < 0) {
-    n = len + n;
+  nShift %= len;
+  if (nShift < 0) {
+    nShift = len + nShift;
   }
-  return [...arr.slice(-n), ...arr.slice(0, len - n)];
+  return [...arr.slice(-nShift), ...arr.slice(0, len - nShift)];
 }
 
 /**
