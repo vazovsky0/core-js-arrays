@@ -446,8 +446,12 @@ function createChunks(arr, chunkSize) {
  *    generateOdds(2) => [ 1, 3 ]
  *    generateOdds(5) => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
-  throw new Error('Not implemented');
+function generateOdds(len) {
+  const result = [];
+  for (let i = 0; i < len; i++) {
+    result.push(2 * i + 1);
+  }
+  return result;
 }
 
 /**
@@ -462,8 +466,15 @@ function generateOdds(/* len */) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  if (!Array.isArray(arr) || !Array.isArray(indices)) {
+    throw new TypeError("Both arguments must be arrays");
+  }
+  let result = arr;
+  for (let i = 0; i < indices.length; i++) {
+    result = result[indices[i]];
+  }
+  return result;
 }
 
 /**
@@ -478,8 +489,11 @@ function getElementByIndices(/* arr, indices */) {
  *  getFalsyValuesCount([ -1, 'false', null, 0 ]) => 2
  *  getFalsyValuesCount([ null, undefined, NaN, false, 0, '' ]) => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  if (!Array.isArray(arr)) {
+    throw new TypeError("Input must be an array");
+  }
+  return arr.filter(item => !item).length;
 }
 
 /**
@@ -500,8 +514,23 @@ function getFalsyValuesCount(/* arr */) {
  *                              [0,0,0,1,0],
  *                              [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  if (n <= 0) {
+    throw new Error("Size of the matrix must be a positive integer");
+  }
+  const matrix = [];
+  for (let i = 0; i < n; i++) {
+    const row = [];
+    for (let j = 0; j < n; j++) {
+      if (i === j) {
+        row.push(1);
+      } else {
+        row.push(0);
+      }
+    }
+    matrix.push(row);
+  }
+  return matrix;
 }
 
 /**
@@ -515,8 +544,13 @@ function getIdentityMatrix(/* n */) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  if (!Array.isArray(numbers)) {
+    throw new TypeError("Input must be an array");
+  }
+  return numbers
+    .map((num, i) => i)
+    .filter(i => numbers[i] % 2 !== 0);
 }
 
 /**
@@ -529,10 +563,26 @@ function getIndicesOfOddNumbers(/* numbers */) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+/**
+ * Returns the array of RGB Hex strings from the specified array of numbers.
+ *
+ * @param {number[]} arr - The input array.
+ * @return {string[]} - The array of RGB Hex strings.
+ *
+ * @example
+ *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
+ *    getHexRGBValues([]) => []
+ */
+function getHexRGBValues(arr) {
+  if (!Array.isArray(arr)) {
+    throw new TypeError("Input must be an array");
+  }
+  return arr.map(num => {
+    const hex = num.toString(16).toUpperCase().padStart(6, '0');
+    return `#${hex}`;
+  }
+  );
 }
-
 /**
  * Returns the n largest values from the specified array
  *
