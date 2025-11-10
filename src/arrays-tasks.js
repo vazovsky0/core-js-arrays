@@ -597,8 +597,13 @@ function getHexRGBValues(arr) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  if (!Array.isArray(arr)) {
+    throw new TypeError("First argument must be an array");
+  }
+  return arr
+    .sort((a, b) => b - a)
+    .slice(0, n);
 }
 
 /**
@@ -613,8 +618,11 @@ function getMaxItems(/* arr, n */) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
+    throw new TypeError("Both arguments must be arrays");
+  }
+  return arr1.filter(item => arr2.includes(item));
 }
 
 /**
@@ -628,8 +636,25 @@ function findCommonElements(/* arr1, arr2 */) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => longest is [3, 10] and [1, 20] => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => longest is [7, 40, 80] => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+
+function findLongestIncreasingSubsequence(nums) {
+  if (!Array.isArray(nums)) {
+    throw new TypeError("Input must be an array");
+  }
+
+  if (!nums || nums.length === 0) return 0;
+  let max = 1;
+  let curr = 1;
+  
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] > nums[i - 1]) {
+      curr++;
+      max = Math.max(max, curr);
+    } else {
+      curr = 1;
+    }
+  }
+  return max;
 }
 
 /**
@@ -646,8 +671,29 @@ function findLongestIncreasingSubsequence(/* nums */) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+/**
+ * Propagates every item in sequence its position times
+ * Returns an array that consists of: one first item, two second items, three third items etc.
+ *
+ * @param {any[]} arr - The input array
+ * @return {any[]}
+ *
+ * @example :
+ *  propagateItemsByPositionIndex([1,2,3]) => [1, 2,2, 3,3,3]
+ */
+function propagateItemsByPositionIndex(arr) {
+  if (!Array.isArray(arr)) {
+    throw new TypeError("Input must be an array");
+  }
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i];
+    const times = i + 1;
+    for (let j = 0; j < times; j++) {
+      result.push(item);
+    }
+  }
+  return result;
 }
 
 /**
@@ -657,54 +703,64 @@ function propagateItemsByPositionIndex(/* arr */) {
  * @param {any[]} arr - The array to be shifted.
  * @param {number} n - The number of positions to shift the array elements.
  * @return {any[]} - The shifted array.
- *
- * @example
- *    shiftArray([1, 2, 3, 4, 5], 2) => [4, 5, 1, 2, 3]
- *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
- *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+
+function shiftArray(arr, n) {
+  if (!arr || arr.length === 0 || n === 0) {
+    return [...arr];
+  }
+  const len = arr.length;
+  n = n % len;
+  if (n < 0) {
+    n = len + n;
+  }
+  return [...arr.slice(-n), ...arr.slice(0, len - n)];
 }
 
 /**
- * Sorts digit names.
+ * Sorts digit names by their numeric value (zero to nine).
  *
- * @param {string[]} arr - The input array.
+ * @param {string[]} arr - The input array of digit names.
  * @return {string[]} - Sorted array.
- *
- * @example
- *   sortDigitNamesByNumericOrder([]) => []
- *   sortDigitNamesByNumericOrder([ 'nine','one' ]) => [ 'one', 'nine' ]
- *   sortDigitNamesByNumericOrder([ 'one','two','three' ]) => [ 'one','two', 'three' ]
- *   sortDigitNamesByNumericOrder([ 'nine','eight','nine','eight' ]) => [ 'eight','eight','nine','nine']
- *   sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]) => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  // Словарь: название → число
+  const digitValue = {
+    'zero': 0,
+    'one': 1,
+    'two': 2,
+    'three': 3,
+    'four': 4,
+    'five': 5,
+    'six': 6,
+    'seven': 7,
+    'eight': 8,
+    'nine': 9
+  };
+
+  if (!Array.isArray(arr)) return [];
+  
+  return [...arr].sort((a, b) => {
+    return digitValue[a] - digitValue[b];
+  });
 }
 
 /**
- * Swaps the head and tail of the specified array:
- * the head (first half) of array move to the end, the tail (last half) move to the start.
- * The middle element (if exists) leave on the same position. *
+ * Swaps the head and tail of the specified array.
  *
  * @param {any[]} arr - The input array.
  * @return {any[]} - The swapped array.
- *
- * @example
- *   [ 1, 2, 3, 4, 5 ]   =>  [ 4, 5, 3, 1, 2 ]
- *    \----/   \----/
- *     head     tail
- *
- *   swapHeadAndTail([ 1, 2 ]) => [ 2, 1 ]
- *   swapHeadAndTail([ 1, 2, 3, 4, 5, 6, 7, 8 ]) =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
- *   swapHeadAndTail([ 1 ]) => [ 1 ]
- *   swapHeadAndTail([]) => []
- *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (!arr || arr.length <= 1) {
+    return [...arr];
+  }
+  const len = arr.length;
+  const mid = Math.floor(len / 2);
+  const tail = arr.slice(-mid);
+  const middle = len % 2 === 1 ? [arr[mid]] : [];
+  const head = arr.slice(0, mid);
+  return [...tail, ...middle, ...head];
 }
 
 module.exports = {
