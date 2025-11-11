@@ -24,13 +24,8 @@ function getIntervalArray(start, end) {
   if (start > end) {
     return [];
   }
-  const result = [];
-  for (let i = start; i <= end; i += 1) {
-    result.push(i);
-  }
-  return result;
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 }
-
 /**
  * Returns a new array where each element is the sum of the corresponding elements
  * from two arrays. Arrays can have different lengths.
@@ -45,10 +40,16 @@ function getIntervalArray(start, end) {
  *    sumArrays([-1, 0, 1], [1, 2, 3, 4]) => [0, 2, 4, 4]
  */
 function sumArrays(arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    throw new Error('Arrays must be of the same length');
+  const maxLength = Math.max(arr1.length, arr2.length);
+  const result = [];
+
+  for (let i = 0; i < maxLength; i += 1) {
+    const num1 = arr1[i] || 0; // если элемента нет, используем 0
+    const num2 = arr2[i] || 0; // если элемента нет, используем 0
+    result.push(num1 + num2);
   }
-  return arr1.map((num, idx) => num + arr2[idx]);
+
+  return result;
 }
 
 /**
@@ -366,13 +367,13 @@ function selectMany(arr, childrenSelector) {
     throw new TypeError('First argument must be an array');
   }
 
-  return arr.reduce((acc, item) => {
+  return arr.flatMap((item) => {
     const children = childrenSelector(item);
-    if (Array.isArray(children)) {
-      return acc.concat(children);
+    if (!Array.isArray(children)) {
+      throw new TypeError('childrenSelector must return an array');
     }
-    throw new TypeError('childrenSelector must return an array');
-  }, []);
+    return children;
+  });
 }
 
 /**
